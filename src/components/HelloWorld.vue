@@ -3,8 +3,6 @@
 </template>
 
 <script>
-import axios from 'axios';
-
 //import WebApp from '@twa-dev/sdk'
 
 export default {

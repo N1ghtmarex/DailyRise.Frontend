@@ -23,6 +23,12 @@
                 </div>
             </div>
         </div>
+        <div class="join" v-if="!joined">
+            <button>Принять вызов</button>
+        </div>
+        <div class="joined" v-if="joined">
+            <button>Вы вступили</button>
+        </div>
     </div>
 </template>
 
@@ -30,7 +36,7 @@
 
 
 export default {
-    props: ['challenge'],
+    props: ['challenge', 'joined'],
     components: {
     },
     data() {

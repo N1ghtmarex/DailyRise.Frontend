@@ -8,8 +8,11 @@
         </div>
     </div>
     <div class="challenge-container">
-        <ChallengeCard v-if="filter == 'all'" v-for="item in challenges.items" :challenge="item"></ChallengeCard>
-        <ChallengeCard v-if="filter == 'my'" v-for="item in userChallenges.items" :challenge="item.challenge"></ChallengeCard>
+        <ChallengeCard v-if="filter == 'all'" v-for="item in challenges.items" 
+            :challenge="item" :joined="item.joined">
+        </ChallengeCard>
+        <ChallengeCard v-if="filter == 'my'" v-for="item in userChallenges.items" 
+        :challenge="item.challenge" :joined="true"></ChallengeCard>
     </div>
 </template>
 
@@ -24,21 +27,29 @@ export default {
     },
     data() {
         return {
-            challenges: {},
-            userChallenges: {},
+            challenges: [],
+            userChallenges: [],
             filter: 'all',
         }
     },
     methods: {
     },
     async mounted() {
-        var response = await axios.get('/api/challenge');
-
-        this.challenges = response.data;
-
-        response = await axios.get('/api/user-challenge');
+        var response = await axios.get('/api/user-challenge');
 
         this.userChallenges = response.data;
+
+        response = await axios.get('/api/challenge');
+
+        this.challenges = response.data;
+        this.challenges.items.forEach((item) => {
+            if (this.userChallenges.items.some(x => x.challenge.id == item.id)) {
+                item.joined = true;
+            }
+            else {
+                item.joined = false;
+            }
+        })
     }
 }
 </script>

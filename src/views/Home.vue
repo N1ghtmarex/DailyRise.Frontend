@@ -1,10 +1,10 @@
 <template>
     <div class="tabs">
         <div class="tab" :class="filter == 'all' ? 'active' : ''" @click="filter = 'all'">
-            <p>Все испытания</p>
+            Все испытания
         </div>
         <div class="tab" :class="filter == 'my' ? 'active' : ''" @click="filter = 'my'">
-            <p>Мои</p>
+            Мои
         </div>
     </div>
     <div class="challenge-container">

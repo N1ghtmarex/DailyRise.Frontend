@@ -66,31 +66,41 @@ nav button.active {
 }
 
 .tabs {
-    position: relative;
+    justify-self: center;
+    justify-content: center;
+    margin-top: 1rem;
     display: flex;
     align-items: center;
-    justify-content: center;
-    justify-self: center;
-    background-color: rgba(11, 16, 32, 0.9);;
-    border-radius: 9999px;
-    width: 90%;
-    height: 40px;
-    padding: .75rem 2rem;
-    margin-top: 1rem;
-    gap: 2rem;
+    gap: 8px;
+    margin-bottom: 28px;
+    background: #0b0d1a;
+    width: max-content;
+    height: max-content;
+    border-radius: 999px;
+    padding: .5rem 1rem;
 }
 
-.tabs .tab {
-    color: white;
-    padding: .375rem 1rem;
+.tab {
+    padding: .5rem 1rem;
+    position: relative;
+    border-radius: 999px;
+    color: #9ca3af;
     cursor: pointer;
-    transition: all ease-in-out 300ms;
+    transition:
+    color 0.25s ease,
+    transform 0.25s cubic-bezier(.34,1.56,.64,1),
+    background-color 0.25s ease;
 }
 
-.tabs .active {
-    background-color: rgba(128, 128, 128, 0.274);
-    border-radius: 9999px;
-    color: rgb(177, 109, 255);
+.tab:hover {
+    color: #e5e7eb;
+    transform: scale(1.05);
+}
+
+.tab.active {
+    color: white;
+    background: linear-gradient(90deg, #6c7cff, #4ade80);
+    transform: scale(1.15);
 }
 
 .challenge-container {

@@ -9,8 +9,10 @@
   },
   "dependencies": {
     "@twa-dev/sdk": "^8.0.2",
+    "@vuepic/vue-datepicker": "^12.1.0",
     "axios": "^1.13.2",
     "core-js": "^3.8.3",
+    "sass-loader": "^16.0.6",
     "vue": "^3.2.13",
     "vue-router": "^4.6.4"
   },

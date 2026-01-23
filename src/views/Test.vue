@@ -1,5 +1,4 @@
 <template>
-    <div>Test works</div>
 </template>
 
 <script>
@@ -8,9 +7,13 @@ export default {
     },
     data() {
         return {
+            user: {},
         }
     },
     methods: {
+    },
+    mounted() {
+        this.user = localStorage.getItem("user");
     }
 }
 </script>

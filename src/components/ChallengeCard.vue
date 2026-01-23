@@ -7,13 +7,18 @@
         </div>
 
         <div class="progress">
-            <div class="progress-bar" :style="{ width: Math.round((Math.round((new Date(new Date() - Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)) + 1) /
-                            (Math.round((new Date(Date.parse(challenge.endDate)) - new Date(Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)))) * 100 + '%' }">
-            </div>
+            <div class="progress-bar" :style="{ width: progressPercent + '%' }"></div>
         </div>
 
         <div class="card-actions">
             <button v-if="!isJoined" class="btn secondary" @click="enterChallenge()">Вступить</button>
+            <div class="author">
+                <img class="avatar" :src="challenge.author.photoUrl">
+                <div class="author-data">
+                    <div class="name">{{ challenge.author.firstname ?? '' }} {{ challenge.author.lastname ?? '' }}</div>
+                    <div class="username">{{ `${challenge.author.username ? `@${challenge.author.username}` : ''}` }}</div>
+                </div>
+            </div>
         </div>
       </div>
 </template>
@@ -41,6 +46,27 @@ export default {
             }
 
             console.log(response);
+        }
+    },
+    computed: {
+        progressPercent() {
+            const start = new Date(this.challenge.startDate)
+            const end = new Date(this.challenge.endDate)
+            const today = new Date()
+
+            if (today < start) return 0
+            if (today > end) return 100
+
+            const totalDays =
+            Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+
+            const passedDays =
+            Math.ceil((today - start) / (1000 * 60 * 60 * 24))
+
+            return Math.min(
+            Math.round((passedDays / totalDays) * 100),
+            100
+            )
         }
     }
 }

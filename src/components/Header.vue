@@ -53,6 +53,9 @@ export default {
         catch {
             await axios.post('/api/user', {
                 username: this.user.username,
+                firstname: this.user.first_name,
+                lastname: this.user.last_name,
+                photoUrl: this.user.photo_url,
                 telegramId: this.user.id
             });
         }

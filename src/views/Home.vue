@@ -22,6 +22,7 @@ import axios from '@/plugins/axios';
 
 
 export default {
+    emits: ['close', 'showLoading', 'showPopup'],
     components: {
         ChallengeCard,
     },
@@ -35,21 +36,32 @@ export default {
     methods: {
     },
     async mounted() {
-        var response = await axios.get('/api/user-challenge');
+        this.$emit('showLoading', true);
 
-        this.userChallenges = response.data;
+        try {
+            var response = await axios.get('/api/user-challenge');
 
-        response = await axios.get('/api/challenge');
+            this.userChallenges = response.data;
 
-        this.challenges = response.data;
-        this.challenges.items.forEach((item) => {
-            if (this.userChallenges.items.some(x => x.challenge.id == item.id)) {
-                item.joined = true;
-            }
-            else {
-                item.joined = false;
-            }
-        })
+            response = await axios.get('/api/challenge');
+
+            this.challenges = response.data;
+            this.challenges.items.forEach((item) => {
+                if (this.userChallenges.items.some(x => x.challenge.id == item.id)) {
+                    item.joined = true;
+                }
+                else {
+                    item.joined = false;
+                }
+            })
+        }
+        catch {
+
+            
+        }
+        finally {
+            this.$emit('showLoading', false);
+        }
     }
 }
 </script>

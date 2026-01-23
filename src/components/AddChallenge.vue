@@ -15,12 +15,12 @@
 
             <div class="input-group">
                 <label>Дата начала</label>
-                <VueDatePicker v-model="challengeToCreate.startDate" class="date-picker"></VueDatePicker>
+                <VueDatePicker v-model="challengeToCreate.startDate" class="date-picker" :formats="{ input: 'dd.MM.yyyy - HH:mm' }"></VueDatePicker>
             </div>
 
             <div class="input-group">
                 <label>Дата окончания</label>
-                <VueDatePicker v-model="challengeToCreate.endDate" class="date-picker"></VueDatePicker>
+                <VueDatePicker v-model="challengeToCreate.endDate" class="date-picker" :formats="{ input: 'dd.MM.yyyy - HH:mm' }"></VueDatePicker>
             </div>
 
             <button class="modal-create" @click="handleCreateClick()">Создать</button>
@@ -31,12 +31,11 @@
 
 <script>
 import axios from '@/plugins/axios';
-import WebApp from '@twa-dev/sdk';
 import { VueDatePicker } from '@vuepic/vue-datepicker';
 
 
 export default {
-    emits: ['close'],
+    emits: ['close', 'showLoading', 'showPopup'],
     components: {
         VueDatePicker
     },
@@ -47,7 +46,24 @@ export default {
     },
     methods: {
         async handleCreateClick() {
-            const response = await axios.post('/api/challenge', this.challengeToCreate);
+            this.$emit('showLoading', true);
+            try {
+                const response = await axios.post('/api/challenge', this.challengeToCreate)
+                if (response.status == 200) {
+                    this.$emit('showPopup', {
+                        message: 'Испытание успешно создано!',
+                        type: 'success'
+                    })
+                }
+            } catch(e) {
+                this.$emit('showPopup', {
+                    message: 'Ошибка при добавлении испытания',
+                    type: 'error'
+                });
+            }
+            finally {
+                this.$emit('showLoading', false);
+            }
         }
     },
 }

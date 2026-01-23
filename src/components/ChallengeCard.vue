@@ -1,38 +1,26 @@
 <template>
     <div class="challenge-card">
-        <div class="challenge-header">
-            <div class="title">
-                <h3 class="name">{{ challenge.name }}</h3>
-                <p class="description">{{ challenge.description }}</p>
+        <h3>{{ challenge.name }}</h3>
+        <p>{{ challenge.description }}</p>
+        <div class="dates">
+            {{ (new Date(Date.parse(challenge.startDate)).toLocaleString('ru-RU').split(',')[0]) }} — {{ (new Date(Date.parse(challenge.endDate)).toLocaleString('ru-RU').split(',')[0]) }}
+        </div>
+
+        <div class="progress">
+            <div class="progress-bar" :style="{ width: Math.round((Math.round((new Date(new Date() - Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)) + 1) /
+                            (Math.round((new Date(Date.parse(challenge.endDate)) - new Date(Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)))) * 100 + '%' }">
             </div>
         </div>
-        <div class="progress-wrapper">
-            <div class="progress-container">
-                <div class="days-progress">
-                    <span class="days">День {{ Math.round((new Date(new Date() - Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)) + 1 }} из {{ Math.round((new Date(Date.parse(challenge.endDate)) - new Date(Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)) }}</span>
-                    <span class="days-percent">
-                        {{ 
-                        Math.round((Math.round((new Date(new Date() - Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)) + 1) /
-                            (Math.round((new Date(Date.parse(challenge.endDate)) - new Date(Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)))) * 100
-                        }}%
-                    </span>
-                </div>
-                <div class="progress">
-                    <div class="progress-bar" :style="`width: ${Math.round((Math.round((new Date(new Date() - Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)) + 1) /
-                            (Math.round((new Date(Date.parse(challenge.endDate)) - new Date(Date.parse(challenge.startDate))) / (1000 * 60 * 60 * 24)))) * 100}%`"></div>
-                </div>
-            </div>
+
+        <div class="card-actions">
+            <button v-if="!isJoined" class="btn secondary" @click="enterChallenge()">Вступить</button>
         </div>
-        <div class="join" v-if="!joined">
-            <button>Принять вызов</button>
-        </div>
-        <div class="joined" v-if="joined">
-            <button>Вы вступили</button>
-        </div>
-    </div>
+      </div>
 </template>
 
 <script>
+import axios from '@/plugins/axios';
+
 
 
 export default {
@@ -41,7 +29,19 @@ export default {
     },
     data() {
         return {
+            isJoined: this.joined
         }
     },
+    methods: {
+        async enterChallenge() {
+            const response = await axios.put(`/api/user-challenge/accept/${this.challenge.id}`);
+
+            if (response.status == 200) {
+                this.isJoined = true;
+            }
+
+            console.log(response);
+        }
+    }
 }
 </script>

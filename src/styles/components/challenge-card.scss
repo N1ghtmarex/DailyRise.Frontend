@@ -1,83 +1,38 @@
-.challenge-card {
-    background-color: white; 
-    border-radius: 1rem;
-    padding: 1rem;
-    border: 1px solid rgb(224 231 255);
-    box-shadow: var(0 0 #0000, 0 0 #0000), var(0 0 #0000, 0 0 #0000), var(0 1px 2px 0 rgb(0 0 0 / 0.05));
-    transition: all cubic-bezier(0.4, 0, 0.2, 1) 300ms;
-    cursor: pointer;
-}
+.challenge-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
 
-.challenge-card:hover {
-    box-shadow: var(0 0 #0000, 0 0 #0000), var(0 0 #0000, 0 0 #0000), var(0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1));
-}
+    .challenge-card {
+      background: #181b34;
+      border-radius: 16px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
+    }
 
-.challenge-card .challenge-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: start;
-    margin-bottom: .75rem;
-}
+    .challenge-card h3 { margin: 0; font-size: 18px; }
+    .challenge-card p { margin: 0; font-size: 14px; color: #9ca3af; }
+    .dates { font-size: 13px; color: #9ca3af; }
 
-.challenge-card .challenge-header .name {
-    font-weight: 700;
-    font-size: 1.125rem;
-    line-height: 1.75rem;
-    color: rgb(31 41 55);
-}
+    .progress {
+      height: 8px;
+      background: #0b0d1a;
+      border-radius: 999px;
+      overflow: hidden;
+    }
 
-.challenge-card .challenge-header .description {
-    font-size: 0.875rem;
-    line-height: 1.25rem;
-    color: rgb(75 85 99);
-    margin-top: 0.125rem;
-}
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(90deg, #6c7cff, #4ade80);
+      transition: width 0.3s ease;
+    }
 
-.challenge-card .progress-wrapper {
-    display: flex;
-    align-items: center;
-    margin-bottom: .75rem;
-}
-
-.challenge-card .progress-container {
-    flex: 1 1 0%;
-}
-
-.challenge-card .days-progress {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.75rem;
-    line-height: 1rem;
-    margin-bottom: 0.25rem;
-}
-
-.challenge-card .days {
-    font-weight: 500;
-}
-
-.challenge-card .days-percent {
-    color: rgb(79 70 229);
-    font-weight: 500;
-}
-
-.challenge-card .progress {
-    width: 100%;
-    background-color: rgb(238 242 255);
-    border-radius: 9999px;
-    height: 0.5rem;
-}
-
-.challenge-card .progress-bar {
-    background-color: rgb(99 102 241);
-    height: 0.5rem;
-    border-radius: 9999px;
-}
-
-.challenge-card .join button {
-    width: 100%;
-}
-
-.challenge-card .joined button {
-    background-color: rgb(17, 134, 17);
-    width: 100%;
-}
+    .card-actions {
+      margin-top: auto;
+      display: flex;
+      gap: 10px;
+    }

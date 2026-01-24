@@ -45,10 +45,12 @@ export default {
 
             if (response.status == 200) {
                 this.user = response.data;
-                localStorage.setItem("user", this.user);
+                localStorage.setItem("userTelegramId", this.user.id);
             }
 
             response = await axios.get(`/api/user/${this.user.id}`);
+
+            localStorage.setItem("userId", response.data.id);
         }
         catch {
             await axios.post('/api/user', {

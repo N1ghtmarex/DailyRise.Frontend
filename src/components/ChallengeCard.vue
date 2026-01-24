@@ -12,6 +12,7 @@
 
         <div class="card-actions">
             <button v-if="!isJoined" class="btn secondary" @click="enterChallenge()">Вступить</button>
+            <button v-if="showCheckin" class="btn secondary" @click="checkIn()">Отметить выполнение</button>
             <div class="author">
                 <img class="avatar" :src="challenge.author.photoUrl">
                 <div class="author-data">
@@ -29,7 +30,7 @@ import axios from '@/plugins/axios';
 
 
 export default {
-    props: ['challenge', 'joined'],
+    props: ['challenge', 'joined', 'showCheckin'],
     components: {
     },
     data() {
@@ -39,13 +40,48 @@ export default {
     },
     methods: {
         async enterChallenge() {
-            const response = await axios.put(`/api/user-challenge/accept/${this.challenge.id}`);
+            this.$emit('showLoading', true);
+            try {
+                const response = await axios.put(`/api/user-challenge/accept/${this.challenge.id}`);
 
-            if (response.status == 200) {
-                this.isJoined = true;
+                if (response.status == 200) {
+                    this.isJoined = true;
+                }
+
+                this.$router.go(0);
             }
+            catch {
 
-            console.log(response);
+            }
+            finally {
+                this.$emit('showLoading', false);
+            }
+        },
+        async checkIn() {
+            this.$emit('showLoading', true);
+
+            try {
+                const response = await axios.post('/api/user-challenge/check-in', {
+                    userId: localStorage.getItem('userId'),
+                    challengeId: this.challenge.id
+                })
+
+                this.$router.go(0);
+
+                this.$emit('showPopup', {
+                    message: e.response != undefined ? e.response.data.Message : 'Выполнение успешно отмечено!',
+                    type: 'success'
+                });
+            }
+            catch(e) {
+                this.$emit('showPopup', {
+                    message: e.response != undefined ? e.response.data.Message : `Возникла непредвиденная ошибка (${e})`,
+                    type: 'error'
+                });
+            }
+            finally {
+                this.$emit('showLoading', false);
+            }
         }
     },
     computed: {

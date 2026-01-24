@@ -55,6 +55,9 @@ export default {
                         type: 'success'
                     })
                 }
+
+                this.$router.go(0);
+                
             } catch(e) {
                 this.$emit('showPopup', {
                     message: 'Ошибка при добавлении испытания',

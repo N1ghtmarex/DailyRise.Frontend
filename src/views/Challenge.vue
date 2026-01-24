@@ -38,7 +38,7 @@ export default {
             challenge: null,
             users: [],
             joined: null,
-            showCheckin: true,
+            showCheckin: false,
             checkIns: [],
         }
     },
@@ -64,7 +64,7 @@ export default {
 
             this.checkIns = response.data;
 
-            this.showCheckin = !this.checkIns.some(x => x.userChallengeBind.user.id == localStorage.getItem('userId') && new Date(Date.parse(this.checkIns[0].checkInDate)).toLocaleString('ru-RU').split(',')[0] == new Date().toLocaleString('ru-RU').split(',')[0]);
+            this.showCheckin = this.joined && !this.checkIns.some(x => x.userChallengeBind.user.id == localStorage.getItem('userId') && new Date(Date.parse(this.checkIns[0].checkInDate)).toLocaleString('ru-RU').split(',')[0] == new Date().toLocaleString('ru-RU').split(',')[0]);
         }
         finally {
             this.$emit('showLoading', false);

@@ -69,7 +69,7 @@ export default {
                 this.$router.go(0);
 
                 this.$emit('showPopup', {
-                    message: e.response != undefined ? e.response.data.Message : 'Выполнение успешно отмечено!',
+                    message: 'Выполнение успешно отмечено!',
                     type: 'success'
                 });
             }

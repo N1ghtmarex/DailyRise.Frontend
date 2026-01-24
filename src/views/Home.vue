@@ -12,7 +12,7 @@
             :challenge="item" :joined="item.joined" @click="() => { $router.push(`/challenge/${item.id}`) }">
         </ChallengeCard>
         <ChallengeCard v-if="filter == 'my'" v-for="item in userChallenges.items" 
-        :challenge="item.challenge" :joined="true"></ChallengeCard>
+        :challenge="item.challenge" :joined="true" @click="() => { $router.push(`/challenge/${item.challenge.id}`) }"></ChallengeCard>
     </div>
 </template>
 

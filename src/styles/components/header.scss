@@ -1,0 +1,40 @@
+header {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: white;
+    backdrop-filter: blur(10px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    border-bottom: 1px solid rgba(128, 128, 128, 0.3);
+}
+
+.user {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.firstname {
+    font-size: 16px;
+    font-weight: 600;
+    color: black;
+}
+
+.username {
+    font-size: 14px;
+    color: #9ca3af;
+}
+
+.avatar img {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #6366f1, #22d3ee);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+}

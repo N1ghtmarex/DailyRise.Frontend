@@ -1,18 +1,15 @@
 <template>
     <div class="challenge-card">
-        <h3>{{ challenge.name }}</h3>
-        <p>{{ challenge.description }}</p>
-        <div class="dates">
-            {{ (new Date(Date.parse(challenge.startDate)).toLocaleString('ru-RU').split(',')[0]) }} — {{ (new Date(Date.parse(challenge.endDate)).toLocaleString('ru-RU').split(',')[0]) }}
+        <div class="card-data" @click="() => { $router.push(`/challenge/${challenge.id}`) }">
+            <img class="card-banner" src="../../public/imgs/card-banner.png"></img>
+            <div class="card-content">
+                <div class="card-title">{{ challenge.name }}</div>
+                <div class="card-date">
+                    {{ (new Date(Date.parse(challenge.startDate)).toLocaleString('ru-RU').split(',')[0]) }} — {{ (new Date(Date.parse(challenge.endDate)).toLocaleString('ru-RU').split(',')[0]) }}
+                </div>
+            </div>
         </div>
-
-        <div class="progress">
-            <div class="progress-bar" :style="{ width: progressPercent + '%' }"></div>
-        </div>
-
-        <div class="card-actions">
-            <button v-if="!isJoined" class="btn secondary" @click="enterChallenge()">Вступить</button>
-            <button v-if="showCheckin" class="btn secondary" @click="checkIn()">Отметить выполнение</button>
+        <div class="card-footer">
             <div class="author">
                 <img class="avatar" :src="challenge.author.photoUrl">
                 <div class="author-data">
@@ -20,8 +17,15 @@
                     <div class="username">{{ `${challenge.author.username ? `@${challenge.author.username}` : ''}` }}</div>
                 </div>
             </div>
+            <div class="progress" v-if="isJoined">
+                <div class="passed-days">{{ getPassedDays }}</div>
+                <span>/</span>
+                <div class="total-days">{{ getTotalDays }}</div>
+                <span>Дней</span>
+            </div>
+            <button class="join" v-else @click="enterChallenge()">Присоединиться</button>
         </div>
-      </div>
+    </div>
 </template>
 
 <script>
@@ -85,24 +89,22 @@ export default {
         }
     },
     computed: {
-        progressPercent() {
-            const start = new Date(this.challenge.startDate)
-            const end = new Date(this.challenge.endDate)
-            const today = new Date()
+        getPassedDays() {
+            const start = new Date(this.challenge.startDate);
+            const today = new Date();
 
-            if (today < start) return 0
-            if (today > end) return 100
+            const passedDays = Math.ceil((today - start) / (1000 * 60 * 60 * 24));
+            const totalDays = this.getTotalDays;
 
-            const totalDays =
-            Math.ceil((end - start) / (1000 * 60 * 60 * 24))
+            return  passedDays > totalDays ? totalDays : passedDays;
+            
 
-            const passedDays =
-            Math.ceil((today - start) / (1000 * 60 * 60 * 24))
+        },
+        getTotalDays() {
+            const start = new Date(this.challenge.startDate);
+            const end = new Date(this.challenge.endDate);
 
-            return Math.min(
-            Math.round((passedDays / totalDays) * 100),
-            100
-            )
+            return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
         }
     }
 }

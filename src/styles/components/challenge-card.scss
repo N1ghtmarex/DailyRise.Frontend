@@ -1,61 +1,87 @@
-.challenge-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
+@use '../constants.scss' as vars;
 
-    .challenge-card {
-      background: #181b34;
-      border-radius: 16px;
-      padding: 18px;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.25);
-    }
-
-    .challenge-card h3 { margin: 0; font-size: 18px; }
-    .challenge-card p { margin: 0; font-size: 14px; color: #9ca3af; }
-    .dates { font-size: 13px; color: #9ca3af; }
-
-    .progress {
-      height: 8px;
-      background: #0b0d1a;
-      border-radius: 999px;
-      overflow: hidden;
-    }
-
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, #6c7cff, #4ade80);
-      transition: width 0.3s ease;
-      border-radius: 999px;
-    }
-
-    .card-actions {
-      margin-top: auto;
-      display: flex;
-      gap: 10px;
-    }
-
-    .author .avatar {
-      width: 32px;
-      height: 32px;
-      border-radius: 100%;
-    }
-
-    .author {
-      display: flex;
-      align-items: center;
-      width: 100%;
-      justify-content: end;
-      gap: .5rem
-    }
-
-.author-data .name {
-  font-size: .9rem;
+.challenge-card {
+  background-color:  rgb(215, 226, 243);
+  color: white;
+  border-radius: vars.$radius-xl;
 }
 
-.author-data .username {
-  font-size: .8rem;
+.challenge-card .card-data {
+  background: rgb(78, 139, 188);
+  border-top-left-radius: vars.$radius-xl;
+  border-top-right-radius: vars.$radius-xl;
+  padding: 1rem 1.2rem;
+  position: relative;
+  height: 120px;
+}
+
+.challenge-card .card-content .card-title {
+  font-weight: 600;
+}
+
+.challenge-card .card-content {
+  position: absolute;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.challenge-card .card-banner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-top-left-radius: vars.$radius-xl;
+  border-top-right-radius: vars.$radius-xl;
+}
+
+.challenge-card .card-footer {
+  color: rgb(28, 38, 93);
+  background-color: rgb(241,243,253);
+  border-bottom-left-radius: vars.$radius-xl;
+  border-bottom-right-radius: vars.$radius-xl;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem 1.2rem;
+  height: 51px;
+}
+
+.challenge-card .progress {
+  display: flex;
+}
+
+.challenge-card .progress .total-days {
+  margin-right: 5px;
+  font-weight: 600;
+}
+
+.challenge-card .progress .passed-days {
+  font-weight: 600;
+}
+
+.challenge-card .join {
+  border-radius: vars.$radius-xl;
+  background-color: vars.$green-btn-color;
+}
+
+.challenge-card .author {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.challenge-card .author .avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 100%;
+}
+
+.challenge-card .author-data .name {
+  font-size: .875rem;
+  font-weight: 600;
 }

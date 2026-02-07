@@ -1,11 +1,11 @@
-@import "./index.scss";
-@import "./home.scss";
+@use "./index.scss";
+@use "./home.scss";
 
-@import "./add-challenge.scss";
-@import "./challenge.scss";
+@use "./add-challenge.scss";
+@use "./challenge.scss";
 
-@import './components/challenge-card.scss';
-@import './components/header.scss';
-@import './components/navbar.scss';
+@use './components/challenge-card.scss';
+@use './components/header.scss';
+@use './components/navbar.scss';
 
-@import '@vuepic/vue-datepicker/dist/main.css';
+@use '@vuepic/vue-datepicker/dist/main.css';

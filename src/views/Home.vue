@@ -9,10 +9,10 @@
     </div>
     <div class="challenge-container">
         <ChallengeCard v-if="filter == 'all'" v-for="item in challenges.items" 
-            :challenge="item" :joined="item.joined" @click="() => { $router.push(`/challenge/${item.id}`) }">
+            :challenge="item" :joined="item.joined" >
         </ChallengeCard>
         <ChallengeCard v-if="filter == 'my'" v-for="item in userChallenges.items" 
-        :challenge="item.challenge" :joined="true" @click="() => { $router.push(`/challenge/${item.challenge.id}`) }"></ChallengeCard>
+        :challenge="item.challenge" :joined="true"></ChallengeCard>
     </div>
 </template>
 

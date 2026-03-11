@@ -1,23 +1,26 @@
 <template>
-    <div class="tabs">
-        <div class="tab" :class="filter == 'all' ? 'active' : ''" @click="filter = 'all'">
-            Все испытания
-        </div>
-        <div class="tab" :class="filter == 'my' ? 'active' : ''" @click="filter = 'my'">
-            Мои
-        </div>
-    </div>
     <div class="challenge-container">
-        <ChallengeCard v-if="filter == 'all'" v-for="item in challenges.items" 
-            :challenge="item" :joined="item.joined" >
-        </ChallengeCard>
-        <ChallengeCard v-if="filter == 'my'" v-for="item in userChallenges.items" 
+        <ChallengeCard v-for="item in userChallenges.items" 
         :challenge="item.challenge" :joined="true"></ChallengeCard>
     </div>
+
+    <div class="add-challenge" @click="() => { showAddChallenge = !showAddChallenge }">
+        <div class="icon">+</div>
+        <div class="title">Добавить челлендж</div>
+    </div>
+
+    <Teleport to="body">
+    <AddChallenge
+        v-if="showAddChallenge"
+        @close="showAddChallenge = false"
+        @show-loading="$emit('showLoading', $event)" @show-popup="$emit('showPopup', $event)"
+    />
+    </Teleport>
 </template>
 
 <script>
 import ChallengeCard from '@/components/ChallengeCard.vue';
+import AddChallenge from '@/components/AddChallenge.vue';
 import axios from '@/plugins/axios';
 
 
@@ -25,12 +28,14 @@ export default {
     emits: ['close', 'showLoading', 'showPopup'],
     components: {
         ChallengeCard,
+        AddChallenge,
     },
     data() {
         return {
             challenges: [],
             userChallenges: [],
             filter: 'all',
+            showAddChallenge: false,
         }
     },
     methods: {

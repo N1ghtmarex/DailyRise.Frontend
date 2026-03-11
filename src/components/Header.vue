@@ -7,32 +7,20 @@
             <div class="username">@{{ user.username }}</div>
         </div>
         </div>
-        <button @click="() => { showAddChallenge = !showAddChallenge }">+ Челлендж</button>
     </header>
-
-    <Teleport to="body">
-    <AddChallenge
-        v-if="showAddChallenge"
-        @close="showAddChallenge = false"
-        @show-loading="$emit('showLoading', $event)" @show-popup="$emit('showPopup', $event)"
-    />
-    </Teleport>
 </template>
 
 <script>
 import axios from '@/plugins/axios';
 import WebApp from '@twa-dev/sdk';
-import AddChallenge from './AddChallenge.vue';
 
 export default {
     emits: ['showPopup', 'showLoading'],
     components: {
-        AddChallenge,
     },
     data() {
         return {
             user: {},
-            showAddChallenge: false,
         }
     },
     methods: {

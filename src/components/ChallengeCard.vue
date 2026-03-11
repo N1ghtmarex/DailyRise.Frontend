@@ -104,7 +104,7 @@ export default {
             const start = new Date(this.challenge.startDate);
             const end = new Date(this.challenge.endDate);
 
-            return Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            return Math.ceil((end - start) / (1000 * 60 * 60 * 24)) - 1;
         }
     }
 }

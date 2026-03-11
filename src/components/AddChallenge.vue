@@ -5,17 +5,38 @@
 
             <div class="input-group">
                 <label>Название</label>
-                <input v-model="challengeToCreate.name" placeholder="Укажите название испытания" />
+                <input v-model="challengeToCreate.name" placeholder="Читать книгу" />
             </div>
 
             <div class="input-group">
                 <label>Описание</label>
-                <input v-model="challengeToCreate.description" placeholder="Здесь можно описать суть испытания" />
+                <input v-model="challengeToCreate.description" placeholder="Читать 30 страниц книги каждый день" />
             </div>
 
             <div class="input-group">
                 <label>Дата начала</label>
                 <VueDatePicker v-model="challengeToCreate.startDate" class="date-picker" :formats="{ input: 'dd.MM.yyyy - HH:mm' }"></VueDatePicker>
+            </div>
+
+            <div class="date-range-buttons">
+                <button @click="() => { 
+                        challengeToCreate.startDate != undefined 
+                        ? challengeToCreate.endDate = new Date(new Date().setDate(challengeToCreate.startDate.getDate() + 1)) 
+                        : this.$emit('showPopup', { message: 'Сначала укажите дату начала!', type: 'error'}); 
+                    }"
+                >1 день</button>
+                <button @click="() => { 
+                        challengeToCreate.startDate != undefined 
+                        ? challengeToCreate.endDate = new Date(new Date().setDate(challengeToCreate.startDate.getDate() + 3)) 
+                        : this.$emit('showPopup', { message: 'Сначала укажите дату начала!', type: 'error'}); 
+                    }"
+                >3 дня</button>
+                <button @click="() => { 
+                        challengeToCreate.startDate != undefined 
+                        ? challengeToCreate.endDate = new Date(new Date().setDate(challengeToCreate.startDate.getDate() + 7)) 
+                        : this.$emit('showPopup', { message: 'Сначала укажите дату начала!', type: 'error'}); 
+                    }"
+                >7 дней</button>
             </div>
 
             <div class="input-group">

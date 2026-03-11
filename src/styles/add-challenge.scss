@@ -9,19 +9,19 @@
 .modal-card {
     display: flex;
     flex-direction: column;
-    background: #11162a; 
+    background: white; 
     width: 100%; 
     padding: 20px;
     border-radius: 24px 24px 0 0;
     animation: up .25s ease;
-    color: white;
+    color: black;
 }
 
 @keyframes up { from { transform: translateY(100%); } to { transform: translateY(0); } }
 
 .modal label { 
     font-size: 18px; 
-    color: #9ca3af; 
+    color: black; 
 }
 
 .modal input {
@@ -30,8 +30,8 @@
     margin: 8px 0 14px;
     border-radius: 18px;
     border: 1px solid #1f2937;
-    background: #020617;
-    color: #e5e7eb;
+    background: rgb(241, 241, 241);
+    color: black;
     height: 54px;
 }
 
@@ -48,6 +48,7 @@ button {
 button.secondary { 
     background: transparent; 
     border: 1px solid #334155; 
+    color: black;
 }
 
 .modal-cancel {
@@ -60,12 +61,18 @@ button.secondary {
 }
 
 .input-group {
-    max-width: 380px;
     width: 100%;
 }
 
 .date-picker input {
-    max-width: 380px;
-    color: white;
+    color: black;
     padding-left: 40px;
+}
+
+.date-range-buttons {
+    display: flex;
+    align-items: center;
+    justify-self: center;
+    justify-content: center;
+    gap: 30px;
 }
